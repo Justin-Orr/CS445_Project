@@ -1,21 +1,46 @@
 package entities;
 
+import java.util.Hashtable;
+
 public class RatingManager {
+	
+	private AccountManager account_manager;
+	private RideManager ride_manager;
 
 	public RatingManager() {
-		//Do nothing
+		this.account_manager = new AccountManager();
+		this.ride_manager = new RideManager();
 	}
 	
-	public void rateAccount() {
-		//Do nothing
+	public int rateAccount(int rid, int sent_by_id, int rating, String comment) {
+		if(ratingValidator(rating) == -1) {
+			return -1;
+		}
+		else {
+			Ride ride = ride_manager.viewRideDetail(sent_by_id);
+			int complementary_id = ride.getComplementID(sent_by_id); //Assuming one rider with multiple passengers for now
+			Account account = account_manager.viewAccountDetails(complementary_id);
+			Rating rate = new Rating(rid, sent_by_id, account.getFirstName(), ride.getDate(), rating, comment);
+			account.addRating(rate);
+			return rate.getRatingID();
+		}
 	}
 	
-	public void viewDriverRating() {
-		//Do nothing
+	public Hashtable<Integer, Rating> viewDriverRating(int aid) {
+		Driver driver = (Driver) account_manager.viewAccountDetails(aid);
+		return driver.viewDriverRating();
 	}
 	
-	public void viewRiderRating() {
-		//Do nothing
+	public Hashtable<Integer, Rating> viewRiderRating(int aid) {
+		Rider rider = (Rider) account_manager.viewAccountDetails(aid);
+		return rider.viewRiderRating();
+	}
+	
+	private int ratingValidator(int rating) {
+		if(rating > 5 || rating < 1)
+			return -1;
+		else
+			return rating;
 	}
 	
 }

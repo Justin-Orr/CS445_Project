@@ -7,9 +7,9 @@ import entities.*;
 
 class AppTest {
 	
-	//Vehicle Tests
+	//Ride Manager Tests
 	
-    @Test void testFunction() {
+    @Test void testCreateRide() {
         assertEquals(1, 1);
     }
     

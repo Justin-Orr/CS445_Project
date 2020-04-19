@@ -1,14 +1,25 @@
 package entities;
 
-public class Driver extends User {
+import java.util.Hashtable;
+
+public class Driver extends Account {
 	
-	Vehicle vehicle;
-	Rating rating;
+	private Vehicle vehicle;
 	
-	public Driver(String name, int age, Vehicle vehicle) {
-		super(name, age, "DRIVER");
-		this.vehicle = vehicle;
-		this.rating = new Rating(0);
+	public Driver(String first_name, String last_name, String phone, String picture, boolean is_active) {
+		super("DRIVER", first_name, last_name, phone, picture, is_active);
+	}
+	
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+	
+	public void setVehicle(int totalSeats, int availableSeats, String make, String model, String color, String plate_state, String plate_serial) {
+		this.vehicle = new Vehicle(totalSeats, availableSeats, make, model, color, plate_state, plate_serial);
+	}
+
+	public Hashtable<Integer, Rating> viewDriverRating() {
+		return super.viewRatings();
 	}
 	
 }

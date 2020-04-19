@@ -1,12 +1,15 @@
 package entities;
 
-public class Rider extends User {
+import java.util.Hashtable;
+
+public class Rider extends Account { 
 	
-	Rating rating; 
+	public Rider(String first_name, String last_name, String phone, String picture, boolean is_active) {
+		super("RIDER", first_name, last_name, phone, picture, is_active);
+	}
 	
-	public Rider(String name, int age) {
-		super(name, age, "RIDER");
-		rating = new Rating(5);
+	public Hashtable<Integer, Rating> viewRiderRating() {
+		return super.viewRatings();
 	}
 
 }

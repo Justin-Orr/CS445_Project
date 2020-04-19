@@ -1,11 +1,14 @@
 package entities;
 
-public class BusinessOwner extends User {
+public class BusinessOwner extends Account {
 	
 	private String companyName;
 	
-	public BusinessOwner(String name, int age, String companyName) {
-		super(name, age, "BUSINESSOWNER");
+	public BusinessOwner(String first_name, String last_name, String phone, String picture, boolean is_active) {
+		super("BUSINESSOWNER", first_name, last_name, phone, picture, is_active);
+	}
+	
+	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
 

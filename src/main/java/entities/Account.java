@@ -63,8 +63,19 @@ public class Account {
 		return first_name;
 	}
 	
-	private void findRatingByID(int sid) {
-		//Do nothing
+	public String toString() {
+		String str = "[aid: " + aid +
+					"; type: " + type.toString() +
+					"; first_name: " + first_name +
+					"; last_name: " + last_name +
+					"; phone: " + phone +
+					"; picture: " + picture +
+					"; is_active: " + is_active +
+					"; rides: " + rides +
+					"; ratings: " + ratings +
+					"; average_rating: " + average_rating +
+					"]";
+		return str;
 	}
 	
 }

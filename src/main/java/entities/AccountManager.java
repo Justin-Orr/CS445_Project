@@ -6,34 +6,37 @@ public class AccountManager {
 	
 	private static Hashtable<Integer, Account> list_of_accounts = new Hashtable<Integer, Account>();
 	
-	public void createAccount(String type, String first_name, String last_name, String phone, String picture, boolean is_active) {
+	public int createAccount(String type, String first_name, String last_name, String phone, String picture, boolean is_active) {
 		if(type.compareTo("DRIVER") == 0) {
-			createDriver(first_name, last_name, phone, picture, is_active);			
+			return createDriver(first_name, last_name, phone, picture, is_active);			
 		}
 		else if(type.compareTo("RIDER") == 0) {
-			createRider(first_name, last_name, phone, picture, is_active);
+			return createRider(first_name, last_name, phone, picture, is_active);
 		}
 		else if(type.compareTo("BUSINESSOWNER") == 0) {
-			createBusinessOwner(first_name, last_name, phone, picture, is_active);
+			return createBusinessOwner(first_name, last_name, phone, picture, is_active);
 		}
 		else {
-			//Error
+			return -1;
 		}	
 	}
 	
-	private void createDriver(String first_name, String last_name, String phone, String picture, boolean is_active) {
+	private int createDriver(String first_name, String last_name, String phone, String picture, boolean is_active) {
 		Driver driver = new Driver(first_name, last_name, phone, picture, is_active);
 		addAccount(driver);
+		return driver.getID();
 	}
 	
-	private void createRider(String first_name, String last_name, String phone, String picture, boolean is_active) {
+	private int createRider(String first_name, String last_name, String phone, String picture, boolean is_active) {
 		Rider rider = new Rider(first_name, last_name, phone, picture, is_active);
 		addAccount(rider);
+		return rider.getID();
 	}
 	
-	private void createBusinessOwner(String first_name, String last_name, String phone, String picture, boolean is_active) {
+	private int createBusinessOwner(String first_name, String last_name, String phone, String picture, boolean is_active) {
 		BusinessOwner owner = new BusinessOwner(first_name, last_name, phone, picture, is_active);
 		addAccount(owner);
+		return owner.getID();
 	}
 	
 	public void addAccount(Account account) {

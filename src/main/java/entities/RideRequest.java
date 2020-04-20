@@ -19,5 +19,17 @@ public class RideRequest {
 	public int getRequestID() {
 		return jid;
 	}
+	
+	public void confirmRequest() {
+		ride_confirmed = true;
+	}
+	
+	public void denyRequest() {
+		ride_confirmed = false;
+	}
+	
+	public void confirmPickup() {
+		pickup_confirmed = true;
+	}
 
 }

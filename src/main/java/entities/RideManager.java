@@ -44,29 +44,8 @@ public class RideManager {
 		//Do nothing from: Chicago to: Elgin date: 20 april 2020
 	}
 	
-	public int requestToJoinRide(int aid, int passengers, boolean ride_confirmed, boolean pickup_confirmed) {
-		RideRequest request = new RideRequest(aid, passengers, ride_confirmed, pickup_confirmed);
-		return request.getRequestID();
-	}
-	
-	public void confirmPassengerPickup() {
-		//Do nothing
-	}
-	
-	private void approveRideRequest() {
-		//Do nothing
-	}
-	
-	private void declineRideRequest() {
-		//Do nothing
-	}
-	
 	private Ride findRideByID(int rid) {
 		return list_of_rides.get(rid);
-	}
-	
-	private void findRideByKeyword() {
-		//Do nothing
 	}
 	
 	private boolean driverMatchByID(int rid, int aid) {

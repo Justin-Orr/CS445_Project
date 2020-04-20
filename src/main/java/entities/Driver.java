@@ -5,6 +5,7 @@ import java.util.Hashtable;
 public class Driver extends Account {
 	
 	private Vehicle vehicle;
+	private RideRequest active_request;
 	
 	public Driver(String first_name, String last_name, String phone, String picture, boolean is_active) {
 		super("DRIVER", first_name, last_name, phone, picture, is_active);
@@ -20,6 +21,26 @@ public class Driver extends Account {
 
 	public Hashtable<Integer, Rating> viewDriverRating() {
 		return super.viewRatings();
+	}
+	
+	public void recieveRideRequest(RideRequest request) {
+		this.active_request = request;
+	}
+	
+	public void confirmPassengerPickup() {
+		active_request.confirmPickup();
+	}
+	
+	public void approveRideRequest() {
+		active_request.confirmRequest();
+	}
+	
+	public void declineRideRequest() {
+		active_request.denyRequest();
+	}
+	
+	public void addMessage(int rid, String msg) {
+		//do nothing
 	}
 	
 }

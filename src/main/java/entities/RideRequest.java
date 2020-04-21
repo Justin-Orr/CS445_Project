@@ -5,10 +5,10 @@ public class RideRequest {
 	private int jid; //join ride request ID
 	private int aid;
 	private int passengers; //The number of passengers
-	private boolean ride_confirmed;
-	private boolean pickup_confirmed;
+	private Boolean ride_confirmed;
+	private Boolean pickup_confirmed;
 	
-	public RideRequest(int aid, int passengers, boolean ride_confirmed, boolean pickup_confirmed) {
+	public RideRequest(int aid, int passengers, Boolean ride_confirmed, Boolean pickup_confirmed) {
 		this.jid = UniqueIdGenerator.getUniqueID();
 		this.aid = aid;
 		this.passengers = passengers;
@@ -30,6 +30,16 @@ public class RideRequest {
 	
 	public void confirmPickup() {
 		pickup_confirmed = true;
+	}
+	
+	public String toString() {
+		String str = "[jid: " + jid +
+				"; aid: " + aid +
+				"; passengers: " + passengers + 
+				"; ride_confirmed: " + ride_confirmed +
+				"; pickup_confirmed: " + pickup_confirmed +
+				"]";
+		return str;
 	}
 
 }

@@ -59,5 +59,20 @@ public class Ride {
 	public void addMessage(int aid, String msg) {
 		message_history.addMessage(aid, msg);
 	}
+	
+	public String toString() {
+		String str = "[rid: " + rid +
+					"; pickUp: " + pickUp +
+					"; destination: " + destination +
+					"; date: " + date +
+					"; pickUptime: " + pickUptime +
+					"; driverID: " + driverID +
+					"; riderID: " + riderID +
+					"; max_passengers: " + max_passengers +
+					"; amount_per_passenger: " + amount_per_passenger +
+					"; conditions: " + conditions +
+					"]";
+		return str;
+	}
 
 }

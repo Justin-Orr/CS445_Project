@@ -7,12 +7,12 @@ public class Account {
 	
 	private int aid; //Account ID
 	private AccountType type;
+	private boolean is_active;
+	private String date_created;
 	
 	private String first_name, last_name;
 	private String phone;
 	private String picture;
-	private boolean is_active;
-	
 	private int rides; //number of rides
 	private int ratings; //number of ratings
 	private double average_rating;
@@ -28,6 +28,7 @@ public class Account {
         this.picture = picture;
         this.is_active = is_active;
         this.list_of_ratings = new Hashtable<Integer, Rating>();
+        this.date_created = "D-MMM-YYYY, HH:MM:SS";
 	}
 	
 	public boolean matchesId(int id) {
@@ -66,6 +67,7 @@ public class Account {
 	public String toString() {
 		String str = "[aid: " + aid +
 					"; type: " + type.toString() +
+					"; date_created: " + date_created +
 					"; first_name: " + first_name +
 					"; last_name: " + last_name +
 					"; phone: " + phone +

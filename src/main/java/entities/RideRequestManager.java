@@ -17,7 +17,7 @@ public class RideRequestManager {
 		return findRideRequestByID(jid);
 	}
 	
-	public static int requestToJoinRide(int rid, int aid, int passengers, boolean ride_confirmed, boolean pickup_confirmed) {
+	public static int requestToJoinRide(int rid, int aid, int passengers, Boolean ride_confirmed, Boolean pickup_confirmed) {
 		int jid = createRideRequest(rid, aid, passengers, ride_confirmed, pickup_confirmed);
 		return jid;
 	}
@@ -27,7 +27,7 @@ public class RideRequestManager {
 		driver.recieveRideRequest(request);
 	}
 	
-	private static int createRideRequest(int rid, int aid, int passengers, boolean ride_confirmed, boolean pickup_confirmed) {
+	private static int createRideRequest(int rid, int aid, int passengers, Boolean ride_confirmed, Boolean pickup_confirmed) {
 		RideRequest request = new RideRequest(aid, passengers, ride_confirmed, pickup_confirmed);
 		Ride ride = ride_manager.viewRideDetail(rid);
 		issueRequestToDriver(ride.getDriverID(), request);

@@ -53,7 +53,7 @@ public class RideManager {
 
 	public static void addRider(int aid, int rid) {
 		Ride ride = findRideByID(rid);
-		Rider rider = (Rider) account_manager.viewAccountDetails(rid);
+		Rider rider = (Rider) account_manager.viewAccountDetails(aid);
 		rider.setActiveRide(ride);
 		ride.addRider(aid);
 	}

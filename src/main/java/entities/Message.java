@@ -10,6 +10,7 @@ public class Message {
 	public Message(int aid, String msg) {
 		this.mid = UniqueIdGenerator.getUniqueID();
 		this.msg = msg;
+		this.aid = aid;
 		this.time = "HH:MM:SS"; //Grab formatted system time
 	}
 

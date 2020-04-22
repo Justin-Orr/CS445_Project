@@ -143,12 +143,8 @@ class AppTest {
     	Ride ride = ride_manager.viewRideDetail(4);
     	History history = ride.getMessageHistory();
     	Hashtable<Integer, Message> messages = history.viewMessageHistory();
-    	System.out.println(messages.toString());
     	Message msg1 = messages.get(6);
     	Message msg2 = messages.get(7);
-    	if(msg1 == null) {
-    		System.out.println("Error");
-    	}
     	boolean equal = false;
     	String str1 = "[mid: 6; aid: 2; time: HH:MM:SS; message: Hello]";
     	String str2 = "[mid: 7; aid: 1; time: HH:MM:SS; message: Hi, I just arrived.]";

@@ -45,6 +45,10 @@ public class Ride {
 	public int getDriverID() {
 		return driverID;
 	}
+	
+	public History getMessageHistory() {
+		return this.message_history;
+	}
 
 	public void updateRideDetails(String pickUp, String destination, String date, String pickUptime, int max_passengers, double amount_per_passenger, String conditions) {
 		this.pickUp = pickUp;
@@ -56,8 +60,8 @@ public class Ride {
 		this.conditions = conditions;
 	}
 	
-	public void addMessage(int aid, String msg) {
-		message_history.addMessage(aid, msg);
+	public int addMessage(int aid, String msg) {
+		return message_history.addMessage(aid, msg);
 	}
 	
 	public String toString() {

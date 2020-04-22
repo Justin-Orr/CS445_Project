@@ -10,11 +10,20 @@ public class Message {
 	public Message(int aid, String msg) {
 		this.mid = UniqueIdGenerator.getUniqueID();
 		this.msg = msg;
-		this.time = "Time"; //Grab formatted system time
+		this.time = "HH:MM:SS"; //Grab formatted system time
 	}
 
 	public int getMessageID() {
 		return mid;
+	}
+	
+	public String toString() {
+		String str = "[mid: " + mid +
+					"; aid: " + aid +
+					"; time: " + time +
+					"; message: " + msg +
+					"]";
+		return str;
 	}
 
 }

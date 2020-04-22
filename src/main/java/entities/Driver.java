@@ -5,7 +5,7 @@ import java.util.Hashtable;
 public class Driver extends Account {
 	
 	private Vehicle vehicle;
-	private RideRequest active_request;
+	private RideRequest recent_request;
 	
 	public Driver(String first_name, String last_name, String phone, String picture, boolean is_active) {
 		super("DRIVER", first_name, last_name, phone, picture, is_active);
@@ -24,23 +24,24 @@ public class Driver extends Account {
 	}
 	
 	public void recieveRideRequest(RideRequest request) {
-		this.active_request = request;
+		this.recent_request = request;
 	}
 	
 	public void confirmPassengerPickup() {
-		active_request.confirmPickup();
+		recent_request.confirmPickup();
 	}
 	
-	public void approveRideRequest() {
-		active_request.confirmRequest();
+	public void approveRideRequest(int aid, int rid) {
+		recent_request.confirmRequest();
+		RideManager.addRider(aid, rid);
 	}
 	
 	public void declineRideRequest() {
-		active_request.denyRequest();
+		recent_request.denyRequest();
 	}
 	
-	public void addMessage(int rid, String msg) {
-		//do nothing
+	public int createRide(String from_city, String to_city, String date, String time, int max_passengers, double amount_per_passenger, String conditions) {
+		return RideManager.createRide(this.getID(), from_city, to_city, date, time, max_passengers, amount_per_passenger, conditions);
 	}
 	
 }

@@ -5,16 +5,13 @@ import java.util.Hashtable;
 public class RideManager {
 	
 	private static Hashtable<Integer, Ride> list_of_rides = new Hashtable<Integer, Ride>(); //key = rid, value = ride object
-	private AccountManager accountManager;
+	private static AccountManager account_manager = new AccountManager();
 	
-	public RideManager() {
-		this.accountManager = new AccountManager();
-	}
-	
-	public int createRide(int aid, String from_city, String to_city, String date, String time, int max_passengers, double amount_per_passenger, String conditions) {
-		Driver driver = (Driver) accountManager.viewAccountDetails(aid);
+	public static int createRide(int aid, String from_city, String to_city, String date, String time, int max_passengers, double amount_per_passenger, String conditions) {
+		Driver driver = (Driver) account_manager.viewAccountDetails(aid);
 		Ride ride = new Ride(from_city, to_city, date, time, driver.getID(), max_passengers, amount_per_passenger, conditions);
 		list_of_rides.put(ride.getRideID(), ride);
+		driver.setActiveRide(ride);
 		return ride.getRideID();
 	}
 	
@@ -44,14 +41,21 @@ public class RideManager {
 		//Do nothing from: Chicago to: Elgin date: 20 april 2020
 	}
 	
-	private Ride findRideByID(int rid) {
+	private static Ride findRideByID(int rid) {
 		return list_of_rides.get(rid);
 	}
 	
 	private boolean driverMatchByID(int rid, int aid) {
 		Ride ride = findRideByID(rid);
-		Driver driver = (Driver) accountManager.viewAccountDetails(aid);
+		Driver driver = (Driver) account_manager.viewAccountDetails(aid);
 		return (driver.getID() == ride.getDriverID());
+	}
+
+	public static void addRider(int aid, int rid) {
+		Ride ride = findRideByID(rid);
+		Rider rider = (Rider) account_manager.viewAccountDetails(rid);
+		rider.setActiveRide(ride);
+		ride.addRider(aid);
 	}
 
 }

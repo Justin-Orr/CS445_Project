@@ -10,10 +10,15 @@ public class History {
 		this.history = new Hashtable<Integer, Message>();
 	}
 	
-	public void addMessage(int aid, String msg) {
+	public int addMessage(int aid, String msg) {
 		Message message = new Message(aid, msg);
 		int mid = message.getMessageID();
 		history.put(mid, message);
+		return mid;
+	}
+	
+	public Hashtable<Integer, Message> viewMessageHistory() {
+		return history;
 	}
 
 }

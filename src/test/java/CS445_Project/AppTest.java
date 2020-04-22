@@ -88,7 +88,7 @@ class AppTest {
     
     @Test @Order(5) void testCreateRide() {
     	Driver driver = (Driver) account_manager.viewAccountDetails(1);
-    	int rid = ride_manager.createRide(driver.getID(), "Hyde Park", "Chicago", "D-MMM-YYYY", "12:00:00", 4, 5.0, "No smoking");
+    	int rid = driver.createRide("Hyde Park", "Chicago", "D-MMM-YYYY", "12:00:00", 4, 5.0, "No smoking");
     	Ride ride = ride_manager.viewRideDetail(rid);
     	String str = "[rid: 4; pickUp: Hyde Park; destination: Chicago; date: D-MMM-YYYY; pickUptime: 12:00:00; driverID: 1; riderID: 0; max_passengers: 4; amount_per_passenger: 5.0; conditions: No smoking]";
     	assertEquals(0, str.compareTo(ride.toString()));
@@ -119,7 +119,9 @@ class AppTest {
     
     @Test @Order(9) void testAcceptRideRequest() {
     	Driver driver = (Driver) account_manager.viewAccountDetails(1);
-    	driver.approveRideRequest();
+    	Rider rider = (Rider) account_manager.viewAccountDetails(2);
+    	int rid = ride_manager.viewRideDetail(4).getRideID();
+    	driver.approveRideRequest(rider.getID(), rid);
     	RideRequest request = ride_request_manager.viewRideRequestDetails(5);
     	String str = "[jid: 5; aid: 2; passengers: 2; ride_confirmed: true; pickup_confirmed: null]";
     	assertEquals(0, str.compareTo(request.toString()));
@@ -134,7 +136,26 @@ class AppTest {
     }
     
     @Test @Order(11) void testAddMessage() {
-    	
+    	Rider rider = (Rider) account_manager.viewAccountDetails(2);
+    	rider.addMessage("Hello");
+    	Driver driver = (Driver) account_manager.viewAccountDetails(1);
+    	driver.addMessage("Hi, I just arrived.");
+    	Ride ride = ride_manager.viewRideDetail(4);
+    	History history = ride.getMessageHistory();
+    	Hashtable<Integer, Message> messages = history.viewMessageHistory();
+    	System.out.println(messages.toString());
+    	Message msg1 = messages.get(6);
+    	Message msg2 = messages.get(7);
+    	if(msg1 == null) {
+    		System.out.println("Error");
+    	}
+    	boolean equal = false;
+    	String str1 = "[mid: 6; aid: 2; time: HH:MM:SS; message: Hello]";
+    	String str2 = "[mid: 7; aid: 1; time: HH:MM:SS; message: Hi, I just arrived.]";
+    	if(msg1.toString().compareTo(str1) == 0 && msg2.toString().compareTo(str2) == 0) {
+    		equal = true;
+    	}
+    	assertTrue(equal);
     }
     
 }

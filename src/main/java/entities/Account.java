@@ -19,6 +19,8 @@ public class Account {
 	
 	private Hashtable<Integer, Rating> list_of_ratings;
 	
+	private Ride active_ride;
+	
 	public Account(String type, String first_name, String last_name, String phone, String picture, boolean is_active) {
         this.aid = UniqueIdGenerator.getUniqueID();
         this.type = AccountType.valueOf(type);
@@ -64,6 +66,10 @@ public class Account {
 		return first_name;
 	}
 	
+	public int addMessage(String msg) {
+		return active_ride.addMessage(aid, msg);
+	}
+	
 	public String toString() {
 		String str = "[aid: " + aid +
 					"; type: " + type.toString() +
@@ -79,5 +85,9 @@ public class Account {
 					"]";
 		return str;
 	}
+	
+	public void setActiveRide(Ride ride) {
+		this.active_ride = ride;
+	} 
 	
 }

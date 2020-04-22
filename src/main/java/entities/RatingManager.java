@@ -4,13 +4,8 @@ import java.util.Hashtable;
 
 public class RatingManager {
 	
-	private AccountManager account_manager;
-	private RideManager ride_manager;
-
-	public RatingManager() {
-		this.account_manager = new AccountManager();
-		this.ride_manager = new RideManager();
-	}
+	private static AccountManager account_manager = new AccountManager();
+	private static RideManager ride_manager = new RideManager();
 	
 	public int rateAccount(int rid, int sent_by_id, int rating, String comment) {
 		if(ratingValidator(rating) == -1) {

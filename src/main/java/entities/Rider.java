@@ -17,9 +17,5 @@ public class Rider extends Account {
 		Boolean pickup_confirmed = null;
 		return RideRequestManager.requestToJoinRide(rid, this.getID(), passengers, ride_confirmed, pickup_confirmed);
 	}
-	
-	public void addMessage(int aid, String msg) {
-		//Do nothing
-	}
 
 }

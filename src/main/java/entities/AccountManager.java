@@ -2,7 +2,9 @@ package entities;
 
 import java.util.Hashtable;
 
-public class AccountManager {
+import interfaces.AccountBoundaryInterface; 
+
+public class AccountManager implements AccountBoundaryInterface {
 	
 	private static Hashtable<Integer, Account> list_of_accounts = new Hashtable<Integer, Account>();
 	
@@ -39,11 +41,11 @@ public class AccountManager {
 		return owner.getID();
 	}
 	
-	public void addAccount(Account account) {
+	private void addAccount(Account account) {
 		list_of_accounts.put(account.getID(), account);
 	}
 	
-	public void deleteAccount() {
+	public void deleteAccount(int aid) {
 		//Do nothing. WARNING: This has a cascading affect across multiple entities referencing the account
 	}
 	

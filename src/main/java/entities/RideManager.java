@@ -2,12 +2,14 @@ package entities;
 
 import java.util.Hashtable;
 
-public class RideManager {
+import interfaces.RideBoundaryInterface;
+
+public class RideManager implements RideBoundaryInterface{
 	
 	private static Hashtable<Integer, Ride> list_of_rides = new Hashtable<Integer, Ride>(); //key = rid, value = ride object
 	private static AccountManager account_manager = new AccountManager();
 	
-	public static int createRide(int aid, String from_city, String to_city, String date, String time, int max_passengers, double amount_per_passenger, String conditions) {
+	public int createRide(int aid, String from_city, String to_city, String date, String time, int max_passengers, double amount_per_passenger, String conditions) {
 		Driver driver = (Driver) account_manager.viewAccountDetails(aid);
 		Ride ride = new Ride(from_city, to_city, date, time, driver.getID(), max_passengers, amount_per_passenger, conditions);
 		list_of_rides.put(ride.getRideID(), ride);
@@ -41,7 +43,7 @@ public class RideManager {
 		//Do nothing from: Chicago to: Elgin date: 20 april 2020
 	}
 	
-	private static Ride findRideByID(int rid) {
+	private Ride findRideByID(int rid) {
 		return list_of_rides.get(rid);
 	}
 	
@@ -51,7 +53,7 @@ public class RideManager {
 		return (driver.getID() == ride.getDriverID());
 	}
 
-	public static void addRider(int aid, int rid) {
+	public void addRider(int aid, int rid) {
 		Ride ride = findRideByID(rid);
 		Rider rider = (Rider) account_manager.viewAccountDetails(aid);
 		rider.setActiveRide(ride);

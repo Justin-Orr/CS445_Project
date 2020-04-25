@@ -19,6 +19,7 @@ class AppTest {
 	RatingManager rating_manager;
 	RideManager ride_manager;
 	RideRequestManager ride_request_manager;
+	ReportManager report_manager;
 	
 	//Account Use Cases
 	@BeforeEach public void initialize() {
@@ -26,6 +27,7 @@ class AppTest {
 		rating_manager = new RatingManager();
 		ride_manager = new RideManager();
 		ride_request_manager = new RideRequestManager();
+		report_manager = new ReportManager();
 	}
 	
     @Test @Order(1) void testCreateAccount() {
@@ -87,8 +89,7 @@ class AppTest {
     }
     
     @Test @Order(5) void testCreateRide() {
-    	Driver driver = (Driver) account_manager.viewAccountDetails(1);
-    	int rid = driver.createRide("Hyde Park", "Chicago", "D-MMM-YYYY", "12:00:00", 4, 5.0, "No smoking");
+    	int rid = ride_manager.createRide(1, "Hyde Park", "Chicago", "D-MMM-YYYY", "12:00:00", 4, 5.0, "No smoking"); 
     	Ride ride = ride_manager.viewRideDetail(rid);
     	String str = "[rid: 4; pickUp: Hyde Park; destination: Chicago; date: D-MMM-YYYY; pickUptime: 12:00:00; driverID: 1; riderID: 0; max_passengers: 4; amount_per_passenger: 5.0; conditions: No smoking]";
     	assertEquals(0, str.compareTo(ride.toString()));
@@ -102,34 +103,28 @@ class AppTest {
     }
     
     @Test @Order(7) void testCreateRideRequest() {
-    	Rider rider = (Rider) account_manager.viewAccountDetails(2);
-    	int jid = rider.issueRideRequest(4, 2);
+    	int jid = ride_request_manager.requestToJoinRide(4, 2, 2, null, null);
     	RideRequest request = ride_request_manager.viewRideRequestDetails(jid);
     	String str = "[jid: 5; aid: 2; passengers: 2; ride_confirmed: null; pickup_confirmed: null]";
     	assertEquals(0, str.compareTo(request.toString()));
     }
     
     @Test @Order(8) void testDenyRideRequest() {
-    	Driver driver = (Driver) account_manager.viewAccountDetails(1);
-    	driver.declineRideRequest();
+    	ride_request_manager.denyRequest(1);
     	RideRequest request = ride_request_manager.viewRideRequestDetails(5);
     	String str = "[jid: 5; aid: 2; passengers: 2; ride_confirmed: false; pickup_confirmed: null]";
     	assertEquals(0, str.compareTo(request.toString()));
     }
     
     @Test @Order(9) void testAcceptRideRequest() {
-    	Driver driver = (Driver) account_manager.viewAccountDetails(1);
-    	Rider rider = (Rider) account_manager.viewAccountDetails(2);
-    	int rid = ride_manager.viewRideDetail(4).getRideID();
-    	driver.approveRideRequest(rider.getID(), rid);
+    	ride_request_manager.confirmRequest(1);
     	RideRequest request = ride_request_manager.viewRideRequestDetails(5);
     	String str = "[jid: 5; aid: 2; passengers: 2; ride_confirmed: true; pickup_confirmed: null]";
     	assertEquals(0, str.compareTo(request.toString()));
     }
     
     @Test @Order(10) void testConfirmPassengerPickup() {
-    	Driver driver = (Driver) account_manager.viewAccountDetails(1);
-    	driver.confirmPassengerPickup();
+    	ride_request_manager.confirmPassengerPickup(1);
     	RideRequest request = ride_request_manager.viewRideRequestDetails(5);
     	String str = "[jid: 5; aid: 2; passengers: 2; ride_confirmed: true; pickup_confirmed: true]";
     	assertEquals(0, str.compareTo(request.toString()));
@@ -152,6 +147,27 @@ class AppTest {
     		equal = true;
     	}
     	assertTrue(equal);
+    }
+    
+    @Test @Order(12) void testViewMessageHistory() {
+    	Ride ride = ride_manager.viewRideDetail(4);
+    	History history = ride.getMessageHistory();
+    	Hashtable<Integer, Message> messages = history.viewMessageHistory();
+    	String str = "{7=[mid: 7; aid: 1; time: HH:MM:SS; message: Hi, I just arrived.], 6=[mid: 6; aid: 2; time: HH:MM:SS; message: Hello]}";
+    	assertEquals(0, messages.toString().compareTo(str));
+    }
+    
+    @Test @Order(13) void testViewAllReports() {
+    	report_manager.createReport("Rides taken between two dates", "DD-MMM-YYYY", "DD-MMM-YYYY", 1, "XXXXX", "XXXXX", 1);
+    	Hashtable<Integer, Report> reports = report_manager.viewAllReports();
+    	String str = "{8=[pid: 8; name: Rides taken between two dates; start_date: DD-MMM-YYYY; end_date: DD-MMM-YYYY; rides: 1; details: {XXXXX=[from_zip: XXXXX; to_zip: XXXXX; count: 1]}]}";
+    	assertEquals(0, reports.toString().compareTo(str));
+    }
+    
+    @Test @Order(14) void testViewReport() {
+    	Report report = report_manager.viewReport(8);
+    	String str = "[pid: 8; name: Rides taken between two dates; start_date: DD-MMM-YYYY; end_date: DD-MMM-YYYY; rides: 1; details: {XXXXX=[from_zip: XXXXX; to_zip: XXXXX; count: 1]}]";
+    	assertEquals(0, report.toString().compareTo(str));
     }
     
 }

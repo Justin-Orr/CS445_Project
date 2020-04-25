@@ -1,8 +1,9 @@
 package entities;
 
 import java.util.Hashtable;
+import interfaces.RatingBoundaryInterface;
 
-public class RatingManager {
+public class RatingManager implements RatingBoundaryInterface {
 	
 	private static AccountManager account_manager = new AccountManager();
 	private static RideManager ride_manager = new RideManager();
@@ -21,14 +22,14 @@ public class RatingManager {
 		}
 	}
 	
-	public Hashtable<Integer, Rating> viewDriverRating(int aid) {
+	public Hashtable<Integer, Rating> viewDriverRatings(int aid) {
 		Driver driver = (Driver) account_manager.viewAccountDetails(aid);
-		return driver.viewDriverRating();
+		return driver.viewRatings();
 	}
 	
-	public Hashtable<Integer, Rating> viewRiderRating(int aid) {
+	public Hashtable<Integer, Rating> viewRiderRatings(int aid) {
 		Rider rider = (Rider) account_manager.viewAccountDetails(aid);
-		return rider.viewRiderRating();
+		return rider.viewRatings();
 	}
 	
 	private int ratingValidator(int rating) {

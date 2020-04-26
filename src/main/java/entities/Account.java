@@ -8,14 +8,25 @@ import java.time.format.DateTimeFormatter;
 
 public class Account {
 	
-	
+	@JsonProperty("aid")
 	private int aid; //Account ID
-	private boolean is_active;
-	private String date_created;
 	
-	private String first_name, last_name;
+	@JsonProperty("first_name")
+	private String first_name;
+	
+	@JsonProperty("last_name")
+	private String last_name;
+	
+	@JsonProperty("phone")
 	private String phone;
+	
+	@JsonProperty("picture")
 	private String picture;
+	
+	@JsonProperty("is_active")
+	private boolean is_active;
+	
+	private String date_created;
 	
 	private int rides; //number of rides
 	private int ratings; //number of ratings

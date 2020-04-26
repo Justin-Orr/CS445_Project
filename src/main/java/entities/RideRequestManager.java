@@ -2,9 +2,7 @@ package entities;
 
 import java.util.Hashtable;
 
-import interfaces.RideRequestBoundaryInterface;
-
-public class RideRequestManager implements RideRequestBoundaryInterface{
+public class RideRequestManager {
 	
 	private static Hashtable<Integer, RideRequest> list_of_requests = new Hashtable<Integer, RideRequest>();
 	

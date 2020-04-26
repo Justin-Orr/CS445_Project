@@ -47,7 +47,7 @@ public class Account {
         this.average_rating = 0;
         this.list_of_ratings = new ArrayList<Rating>();
         
-        this.date_created = TimeDateFormatter.timeStamp();
+        this.date_created = TimeDateFormatter.fullTimeStamp();
 	}
 	
 	public int getID() {
@@ -88,7 +88,7 @@ public class Account {
 		updateAverageRating();
 	}
 	
-	public void incrementNumberOfRides() {
+	public void completeRide() {
 		rides++;
 	}
 	

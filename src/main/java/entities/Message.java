@@ -1,5 +1,6 @@
 package entities;
 
+import util.TimeDateFormatter;
 import util.UniqueIdGenerator;
 
 public class Message {
@@ -7,13 +8,13 @@ public class Message {
 	private int mid; //Message ID
 	private int aid;
 	private String msg;
-	private String time;
+	private String date;
 	
 	public Message(int aid, String msg) {
 		this.mid = UniqueIdGenerator.getUniqueID();
 		this.msg = msg;
 		this.aid = aid;
-		this.time = "HH:MM:SS"; //Grab formatted system time
+		this.date = TimeDateFormatter.fullTimeStamp(); 
 	}
 
 	public int getMessageID() {
@@ -23,7 +24,7 @@ public class Message {
 	public String toString() {
 		String str = "[mid: " + mid +
 					"; aid: " + aid +
-					"; time: " + time +
+					"; date: " + date +
 					"; message: " + msg +
 					"]";
 		return str;

@@ -47,10 +47,6 @@ public class Ride {
 	public String getDate() {
 		return date;
 	}
-
-	public int getDriverID() {
-		return driverID;
-	}
 	
 	public History getMessageHistory() {
 		return message_history;
@@ -76,6 +72,7 @@ public class Ride {
 	}
 
 	public void updateRideDetails(LocationDetails location_info, String date, String time, Vehicle vehicle, int max_passengers, double amount_per_passenger, String conditions) {
+		//Validate the id in the rest controller
 		this.location_info = location_info;
 		this.date = date;
 		this.time = time;
@@ -83,6 +80,20 @@ public class Ride {
 		this.max_passengers = max_passengers;
 		this.amount_per_passenger = amount_per_passenger;
 		this.conditions = conditions;
+	}
+	
+	public boolean containsAccount(int aid) {
+		if(aid == driverID) {
+			return true;
+		}
+		
+		for(int id: riderIDs) {
+			if(aid == id) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public int addMessage(int aid, String msg) {

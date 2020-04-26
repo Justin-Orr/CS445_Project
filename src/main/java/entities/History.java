@@ -1,23 +1,23 @@
 package entities;
 
-import java.util.Hashtable;
+import java.util.ArrayList;
 
 public class History {
 	
-	private Hashtable<Integer, Message> history;
+	private ArrayList<Message> history;
 	
 	public History() {
-		this.history = new Hashtable<Integer, Message>();
+		this.history = new ArrayList<Message>();
 	}
 	
 	public int addMessage(int aid, String msg) {
 		Message message = new Message(aid, msg);
 		int mid = message.getMessageID();
-		history.put(mid, message);
+		history.add(message);
 		return mid;
 	}
 	
-	public Hashtable<Integer, Message> viewMessageHistory() {
+	public ArrayList<Message> viewMessageHistory() {
 		return history;
 	}
 

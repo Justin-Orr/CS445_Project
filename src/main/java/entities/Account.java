@@ -88,14 +88,6 @@ public class Account {
 		updateAverageRating();
 	}
 	
-	public int addMessage(String msg) {
-		return active_ride.addMessage(aid, msg);
-	}
-	
-	public void setActiveRide(Ride ride) {
-		this.active_ride = ride;
-	}
-	
 	public void incrementNumberOfRides() {
 		rides++;
 	}

@@ -7,7 +7,7 @@
 
 <init-param>
     <param-name>com.sun.jersey.config.property.packages</param-name>
-    <param-value>edu.iit.cs445.s2016.lamp</param-value>
+    <param-value>entities</param-value>
 </init-param>
 
 <init-param>

@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Hashtable;
 
 import entities.*;
+import managers.AccountManager;
 
 @TestMethodOrder(OrderAnnotation.class)
 class AppTest {

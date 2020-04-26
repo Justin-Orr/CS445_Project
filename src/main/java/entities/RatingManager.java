@@ -2,6 +2,7 @@ package entities;
 
 import java.util.Hashtable;
 import interfaces.RatingBoundaryInterface;
+import managers.AccountManager;
 
 public class RatingManager implements RatingBoundaryInterface {
 	

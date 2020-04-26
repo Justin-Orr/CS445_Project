@@ -30,5 +30,6 @@
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/Justin/eclipse-workspace/CS445_Project/lib/jackson-annotations-2.0.1.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>

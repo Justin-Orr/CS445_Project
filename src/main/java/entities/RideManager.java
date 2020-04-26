@@ -3,6 +3,7 @@ package entities;
 import java.util.Hashtable;
 
 import interfaces.RideBoundaryInterface;
+import managers.AccountManager;
 
 public class RideManager implements RideBoundaryInterface{
 	
@@ -58,6 +59,11 @@ public class RideManager implements RideBoundaryInterface{
 		Rider rider = (Rider) account_manager.viewAccountDetails(aid);
 		rider.setActiveRide(ride);
 		ride.addRider(aid);
+	}
+	
+	public int completeRide() {
+		//Do nothing
+		//Use increment Ride method in Account
 	}
 
 }

@@ -20,21 +20,20 @@ class AppTest {
 	//The @TestMethodOrder and @Order notations go hand in hand to ensure methods are tested in a specified order
 	AccountManager account_manager;
 	RideManager ride_manager;
-	RideRequestManager ride_request_manager;
 	ReportManager report_manager;
+	
 	
 	//Account Use Cases
 	@BeforeEach public void initialize() {
 		account_manager = new AccountManager();
 		ride_manager = new RideManager();
-		ride_request_manager = new RideRequestManager();
 		report_manager = new ReportManager();
 	}
 	
     @Test @Order(1) void testCreateAccount() {
-    	int driverID = account_manager.createAccount("DRIVER", "John", "Doe", "123-456-7890", "C:/Photo.jpg", false);
-    	int riderID = account_manager.createAccount("RIDER", "Jake", "Long", "123-456-7890", "C:/Photo.jpg", false);
-    	int ownerID = account_manager.createAccount("BUSINESSOWNER", "Bob", "Hill", "123-456-7890", "C:/Photo.jpg", false);
+    	int driverID = account_manager.createAccount("John", "Doe", "123-456-7890", "C:/Photo.jpg", false);
+    	int riderID = account_manager.createAccount("Jake", "Long", "123-456-7890", "C:/Photo.jpg", false);
+    	int ownerID = account_manager.createAccount("Bob", "Hill", "123-456-7890", "C:/Photo.jpg", false);
         
     	boolean initialized = false;
     	Account a = account_manager.viewAccountDetails(driverID);

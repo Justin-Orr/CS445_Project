@@ -33,9 +33,7 @@ public class Account {
 	private int ratings; //number of ratings
 	private double average_rating;
 	private ArrayList<Rating> list_of_ratings;
-	
-	private Ride active_ride;
-	
+		
 	public Account(String first_name, String last_name, String phone, String picture, boolean is_active) {
         this.aid = UniqueIdGenerator.getUniqueID();
         this.first_name = first_name;

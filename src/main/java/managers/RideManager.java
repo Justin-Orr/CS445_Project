@@ -3,20 +3,19 @@ package managers;
 import java.util.Hashtable;
 
 import entities.Driver;
+import entities.LocationDetails;
 import entities.Ride;
 import entities.Rider;
+import entities.Vehicle;
 import interfaces.RideBoundaryInterface;
 
 public class RideManager implements RideBoundaryInterface{
 	
 	private static Hashtable<Integer, Ride> list_of_rides = new Hashtable<Integer, Ride>(); //key = rid, value = ride object
-	private static AccountManager account_manager = new AccountManager();
 	
-	public int createRide(int aid, String from_city, String to_city, String date, String time, int max_passengers, double amount_per_passenger, String conditions) {
-		Driver driver = (Driver) account_manager.viewAccountDetails(aid);
+	public int createRide(int driverID, LocationDetails location_info, String date, String time, Vehicle vehicle, int max_passengers, double amount_per_passenger, String conditions) {
 		Ride ride = new Ride(from_city, to_city, date, time, driver.getID(), max_passengers, amount_per_passenger, conditions);
 		list_of_rides.put(ride.getRideID(), ride);
-		driver.setActiveRide(ride);
 		return ride.getRideID();
 	}
 	
@@ -46,11 +45,26 @@ public class RideManager implements RideBoundaryInterface{
 		//Do nothing from: Chicago to: Elgin date: 20 april 2020
 	}
 	
-	public void requestToJoinRide();
-	public void confirmOrDenyRequest(boolean action);
-	public void confirmPassengerPickup();
-	public void addMessageToRide();
-	public void viewAllRideMessages();
+	public void requestToJoinRide() {
+		//Do nothing
+	}
+	
+	public void confirmOrDenyRequest(boolean action) {
+		//Do nothing
+	}
+	
+	public void confirmPassengerPickup() {
+		//Do nothing
+	}
+	
+	public int addMessageToRide(int aid, String msg) {
+		Ride ride = findRideByAccountID(aid);
+		return ride.addMessage(aid, msg);
+	}
+	
+	public void viewAllRideMessages() {
+		//Do nothing
+	}
 	
 	public void addRider(int aid, int rid) {
 		Ride ride = findRideByID(rid);

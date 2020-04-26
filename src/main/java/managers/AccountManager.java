@@ -1,10 +1,12 @@
 package managers;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import entities.Account;
 import entities.BusinessOwner;
 import entities.Driver;
+import entities.Rating;
 import entities.Rider;
 import interfaces.AccountBoundaryInterface; 
 
@@ -38,7 +40,19 @@ public class AccountManager implements AccountBoundaryInterface {
 	}
 	
 	public int rateAccount(int aid, Rating rating) {
-		
+		Account account = getAccount(aid);
+		account.addRating(rating);
+		return rating.getRatingID();
+	}
+	
+	public ArrayList<Rating> viewDriverRatings(int aid) {
+		Driver driver = (Driver) getAccount(aid);
+		return driver.viewRatings();
+	}
+	
+	public ArrayList<Rating> viewRiderRatings(int aid) {
+		Rider rider = (Rider) getAccount(aid);
+		return rider.viewRatings();
 	}
 	
 	public Account getAccount(int aid) {

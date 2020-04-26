@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.Hashtable;
+import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,7 +31,7 @@ public class Account {
 	private int rides; //number of rides
 	private int ratings; //number of ratings
 	private double average_rating;
-	private Hashtable<Integer, Rating> list_of_ratings;
+	private ArrayList<Rating> list_of_ratings;
 	
 	private Ride active_ride;
 	
@@ -46,7 +46,7 @@ public class Account {
         this.rides = 0;
         this.ratings = 0;
         this.average_rating = 0;
-        this.list_of_ratings = new Hashtable<Integer, Rating>();
+        this.list_of_ratings = new ArrayList<Rating>();
         
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy, HH:mm:ss");
@@ -69,23 +69,18 @@ public class Account {
 	    this.is_active = is_active;
 	}
 	
-	public void addRating(Rating rating) {
-		int rater = rating.getReviewer();
-		ratings++;
-		list_of_ratings.put(rater, rating);
-		updateAverageRating();
+	public String getFirstName() {
+		return first_name;
 	}
 	
-	public void incrementNumberOfRides() {
-		rides++;
-	}
-	
-	public Hashtable<Integer, Rating> viewRatings() {
+	public ArrayList<Rating> viewRatings() {
 		return list_of_ratings;
 	}
 	
-	public String getFirstName() {
-		return first_name;
+	public void addRating(Rating rating) {
+		ratings++;
+		list_of_ratings.add(rating);
+		updateAverageRating();
 	}
 	
 	public int addMessage(String msg) {
@@ -94,6 +89,10 @@ public class Account {
 	
 	public void setActiveRide(Ride ride) {
 		this.active_ride = ride;
+	}
+	
+	public void incrementNumberOfRides() {
+		rides++;
 	}
 	
 	public String toString() {
@@ -113,7 +112,7 @@ public class Account {
 	
 	private void updateAverageRating() {
 		int sum = 0;
-		for(Rating r: list_of_ratings.values()) {
+		for(Rating r: list_of_ratings) {
 			sum += r.getRating();
 		}
 		average_rating = sum/ratings;

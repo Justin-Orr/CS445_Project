@@ -15,10 +15,10 @@ public interface RideBoundaryInterface {
 	public void deleteRide(int rid);
 	public Hashtable<Integer, Ride> viewAllRides();
 	public Ride viewRideDetail(int rid);
-	public void searchRides(String from, String to, String date);
-	public void requestToJoinRide();
-	public void confirmOrDenyRequest(boolean action);
-	public void confirmPassengerPickup();
+	public ArrayList<Ride> searchRides(String from, String to, String date);
+	public int requestToJoinRide(int rid, int aid, int passengers);
+	public void confirmOrDenyRequest(int rid, int jid, boolean ride_confirmed);
+	public void confirmPassengerPickup(int rid, int jid);
 	public int addMessageToRide(int aid, String msg);
 	public ArrayList<Message> viewAllRideMessages(int rid);
 	

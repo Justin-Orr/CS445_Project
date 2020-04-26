@@ -1,7 +1,10 @@
-package entities;
+package interfaces;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import entities.Account;
+import entities.RideRequestManager;
 
 import javax.annotation.PostConstruct;
 import javax.ws.rs.*;

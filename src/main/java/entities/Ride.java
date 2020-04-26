@@ -22,6 +22,8 @@ public class Ride {
 	private ArrayList<Integer> riderIDs;
 	private History message_history;
 	
+	private ArrayList<RideRequest> requests;
+	
 	public Ride(int driverID, LocationDetails location_info, String date, String time, Vehicle vehicle, int max_passengers, double amount_per_passenger, String conditions) {
 		this.rid = UniqueIdGenerator.getUniqueID();
 		
@@ -38,6 +40,7 @@ public class Ride {
 		this.driverID = driverID;
 		this.riderIDs = new ArrayList<Integer>();
 		this.message_history = new History();
+		this.requests = new ArrayList<RideRequest>();
 	}
 	
 	public int getRideID() {
@@ -56,19 +59,47 @@ public class Ride {
 		return spots_available;
 	}
 	
-//	public int getComplementID(int sent_by_id) {
-//		//If argument is a rider id then grab driver id and vice versa
-//		if(driverID == sent_by_id) {
-//			return riderID;
-//		}
-//		else {
-//			return driverID;
-//		}
-//	}
+	public String getFromCity() {
+		return location_info.getFromCity();
+	}
+	
+	public String getToCity() {
+		return location_info.getToCity();
+	}
+	
+	public RideRequest getRideRequest(int jid) {
+		for(RideRequest request: requests) {
+			if(request.getRequestID() == jid) {
+				return request;
+			}
+		}
+		return null;
+	}
 	
 	public void addRider(int riderID, int number_of_passengers) {
 		riderIDs.add(riderID);
 		spots_available -= number_of_passengers;
+	}
+	
+	public void addRideRequest(RideRequest request) {
+		requests.add(request);
+	}
+	
+	public int addMessage(int aid, String msg) {
+		return message_history.addMessage(aid, msg);
+	}
+	
+	public void confirmOrDenyRequest(int jid, boolean status) {
+		RideRequest request = getRideRequest(jid);
+		request.setRideConfirmedStatus(status);
+		if(status == true) {
+			addRider(request.getRiderID(), request.getNumberOfPassengers());
+		}
+	}
+	
+	public void confirmPassengerPickup(int jid) {
+		RideRequest request = getRideRequest(jid);
+		request.confirmPickup();
 	}
 
 	public void updateRideDetails(LocationDetails location_info, String date, String time, Vehicle vehicle, int max_passengers, double amount_per_passenger, String conditions) {
@@ -96,23 +127,5 @@ public class Ride {
 		return false;
 	}
 	
-	public int addMessage(int aid, String msg) {
-		return message_history.addMessage(aid, msg);
-	}
-	
-//	public String toString() {
-//		String str = "[rid: " + rid +
-//					"; pickUp: " + pickUp +
-//					"; destination: " + destination +
-//					"; date: " + date +
-//					"; pickUptime: " + time +
-//					"; driverID: " + driverID +
-//					"; riderID: " + riderID +
-//					"; max_passengers: " + max_passengers +
-//					"; amount_per_passenger: " + amount_per_passenger +
-//					"; conditions: " + conditions +
-//					"]";
-//		return str;
-//	}
 
 }

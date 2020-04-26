@@ -13,7 +13,7 @@ public class ReportManager implements ReportBoundaryInterface{
 		return list_of_reports;
 	}
 	
-	public Report viewReport(int pid) {
+	public Report getReport(int pid) {
 		return findReportByID(pid);
 	}
 	

@@ -3,10 +3,12 @@ package managers;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import entities.Account;
 import entities.Driver;
 import entities.LocationDetails;
 import entities.Message;
 import entities.Ride;
+import entities.RideRequest;
 import entities.Rider;
 import entities.Vehicle;
 import interfaces.RideBoundaryInterface;
@@ -38,20 +40,49 @@ public class RideManager implements RideBoundaryInterface{
 		return findRideByRideID(rid);
 	}
 	
-	public void searchRides(String from, String to, String date) {
-		//Do nothing from: Chicago to: Elgin date: 20 april 2020
+	public ArrayList<Ride> searchRides(String from, String to, String date) {
+		ArrayList<Ride> valid_rides;
+		//The search is case insensitive
+		String from_city = from.toLowerCase();
+		String to_city = to.toLowerCase();
+		
+		if(from_city.compareTo("") == 0 || to_city.compareTo("") == 0 || date.compareTo("") == 0) {
+			valid_rides = new ArrayList<Ride>(list_of_rides.values());
+		}
+		else {
+			
+			valid_rides = new ArrayList<Ride>();
+			
+			for(Ride ride: list_of_rides.values()) {
+				
+				String fc = ride.getFromCity().toLowerCase();
+				String tc = ride.getToCity().toLowerCase();
+				if(fc.compareTo(from_city) == 0 && tc.compareTo(to_city) == 0 && ride.getDate().compareTo(date) == 0) {
+					valid_rides.add(ride);
+				}
+				
+			}
+			
+		}
+		
+		return valid_rides;
 	}
 	
-	public void requestToJoinRide(int rid, int aid) {
-		//Do nothing
+	public int requestToJoinRide(int rid, int aid, int passengers) {
+		RideRequest request = new RideRequest(aid, passengers, null, null);
+		Ride ride = findRideByRideID(rid);
+		ride.addRideRequest(request);
+		return request.getRequestID();
 	}
 	
-	public void confirmOrDenyRequest(boolean action) {
-		//Do nothing
+	public void confirmOrDenyRequest(int rid, int jid, boolean ride_confirmed) {
+		Ride ride = findRideByRideID(rid);
+		ride.confirmOrDenyRequest(jid, ride_confirmed);
 	}
 	
-	public void confirmPassengerPickup() {
-		//Do nothing
+	public void confirmPassengerPickup(int rid, int jid) {
+		Ride ride = findRideByRideID(rid);
+		ride.confirmPassengerPickup(jid);
 	}
 	
 	public int addMessageToRide(int aid, String msg) {
@@ -62,11 +93,6 @@ public class RideManager implements RideBoundaryInterface{
 	public ArrayList<Message> viewAllRideMessages(int rid) {
 		Ride ride = findRideByRideID(rid);
 		return ride.getMessageHistory().viewMessageHistory();
-	}
-	
-	public void addRider(int rid, int aid, int number_of_passengers) {
-		Ride ride = findRideByRideID(rid);
-		ride.addRider(aid, number_of_passengers);
 	}
 	
 	public boolean isValidRideID(int rid) {

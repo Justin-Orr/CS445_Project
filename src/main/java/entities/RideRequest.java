@@ -22,12 +22,16 @@ public class RideRequest {
 		return jid;
 	}
 	
-	public void confirmRequest() {
-		ride_confirmed = true;
+	public int getRiderID() {
+		return aid;
 	}
 	
-	public void denyRequest() {
-		ride_confirmed = false;
+	public int getNumberOfPassengers() {
+		return passengers;
+	}
+	
+	public void setRideConfirmedStatus(boolean status) {
+		ride_confirmed = status;
 	}
 	
 	public void confirmPickup() {

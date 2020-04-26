@@ -34,9 +34,14 @@ public class AccountManager implements AccountBoundaryInterface {
 		return list_of_accounts;
 	}
 	
-	public Hashtable<Integer, Account> searchAccounts() {
-		//Do nothing
-		return new Hashtable<Integer, Account>();
+	public ArrayList<Account> searchAccounts(String keyword) {
+		ArrayList<Account> valid_accounts = new ArrayList<Account>();
+		for(Account account: list_of_accounts.values()) {
+			if(account.getFirstName().compareTo(keyword) == 0 || account.getLastName().compareTo(keyword) == 0 || account.getPhoneNumber().compareTo(keyword) == 0) {
+				valid_accounts.add(account);
+			}
+		}
+		return valid_accounts;
 	}
 	
 	public int rateAccount(int aid, Rating rating) {

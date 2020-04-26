@@ -73,6 +73,14 @@ public class Account {
 		return first_name;
 	}
 	
+	public String getLastName() {
+		return last_name;
+	}
+	
+	public String getPhoneNumber() {
+		return phone;
+	}
+	
 	public ArrayList<Rating> viewRatings() {
 		return list_of_ratings;
 	}
@@ -108,7 +116,7 @@ public class Account {
 					"; average_rating: " + average_rating +
 					"}";
 		return str;
-	} 
+	}
 	
 	private void updateAverageRating() {
 		int sum = 0;

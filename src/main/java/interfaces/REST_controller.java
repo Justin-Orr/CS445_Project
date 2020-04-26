@@ -2,55 +2,68 @@ package interfaces;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonObject;
+//import org.json.simple.JSONObject;
+//import org.json.simple.parser.ParseException;
 
-import entities.Account;
-import entities.RideRequestManager;
-
-import javax.annotation.PostConstruct;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
-import interfaces.*;
-import managers.AccountManager;
-import managers.ReportManager;
-import managers.RideManager;
+import java.util.Map;
+
+import entities.Account;
+import managers.*;
 
 @Path("/sar")
 public class REST_controller {
     private AccountBoundaryInterface account_boundary_interface = new AccountManager();
-    private RatingBoundaryInterface ratng_boundary_interface = new RatingManager();
-    private ReportBoundaryInterface report_boundary_interface = new ReportManager();
     private RideBoundaryInterface ride_boundary_interface = new RideManager();
-    private RideRequestBoundaryInterface ride_request_boundary_interface = new RideRequestManager();
+    private ReportBoundaryInterface report_boundary_interface = new ReportManager();
 
+//    private Map<String, Object> validationErrorResponse(String detail, String instance) {
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("type", "http://cs.iit.edu/~virgil/cs445/project/api/problems/data-validation");
+//        jsonObject.put("title", "Your request data didn't pass validation");
+//        jsonObject.put("detail", detail);
+//        jsonObject.put("status", 400);
+//        jsonObject.put("instance", instance);
+//        return jsonObject.toMap();
+//    }
+    
     @GET
     @Produces("text/plain")
-    public String test() {
+    public Response test() {
         // Test if the server is working properly
-        //Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String s = "Working properly";
-        //System.out.println(s);
-        return s;
-        //return Response.status(Response.Status.OK).entity(s).build();
+        return Response.status(Response.Status.OK).entity(s).build();
     }
     
     @Path("/accounts")
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createAccount(@Context UriInfo uriInfo, String json) {
+    	JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+    	String first_name = jsonObject.get("first_name").toString();
+    	String last_name = jsonObject.get("last_name").toString();
+    	String phone = jsonObject.get("phone").toString();
+    	String picture = jsonObject.get("picture").toString();
+    	boolean is_active = Boolean.parseBoolean(jsonObject.get("is_active").toString());
     	
-    	int aid = account_boundary_interface.createAccount("RIDER", first_name, last_name, phone, picture, is_active);
-    	Account account = account_boundary_interface.viewAccountDetails(aid);
+    	int aid = account_boundary_interface.createAccount(first_name, last_name, phone, picture, is_active);
     	
     	//Prepare Response
         Gson gson = new Gson();
-        String s = gson.toJson(account);
+        String s = gson.toJson(aid);
         // Build the URI for the "Location:" header
         UriBuilder builder = uriInfo.getAbsolutePathBuilder();
         builder.path(Integer.toString(aid));
-
         // The response includes header and body data
         return Response.created(builder.build()).entity(s).build();
     }
+    
 
 }

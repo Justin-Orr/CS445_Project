@@ -7,7 +7,7 @@
 
 <init-param>
     <param-name>com.sun.jersey.config.property.packages</param-name>
-    <param-value>entities</param-value>
+    <param-value>interfaces</param-value>
 </init-param>
 
 <init-param>

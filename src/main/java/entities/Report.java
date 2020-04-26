@@ -2,6 +2,8 @@ package entities;
 
 import java.util.Hashtable;
 
+import util.UniqueIdGenerator;
+
 public class Report {
 	
 	private int pid; //Report ID

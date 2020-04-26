@@ -2,8 +2,9 @@ package entities;
 
 import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import util.UniqueIdGenerator;
+import util.TimeDateFormatter;
 
 
 public class Account {
@@ -48,9 +49,7 @@ public class Account {
         this.average_rating = 0;
         this.list_of_ratings = new ArrayList<Rating>();
         
-        LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy, HH:mm:ss");
-        this.date_created = dtf.format(dateTime);
+        this.date_created = TimeDateFormatter.timeStamp();
 	}
 	
 	public int getID() {

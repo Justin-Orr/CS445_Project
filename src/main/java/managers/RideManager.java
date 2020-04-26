@@ -1,9 +1,11 @@
-package entities;
+package managers;
 
 import java.util.Hashtable;
 
+import entities.Driver;
+import entities.Ride;
+import entities.Rider;
 import interfaces.RideBoundaryInterface;
-import managers.AccountManager;
 
 public class RideManager implements RideBoundaryInterface{
 	
@@ -44,16 +46,12 @@ public class RideManager implements RideBoundaryInterface{
 		//Do nothing from: Chicago to: Elgin date: 20 april 2020
 	}
 	
-	private Ride findRideByID(int rid) {
-		return list_of_rides.get(rid);
-	}
+	public void requestToJoinRide();
+	public void confirmOrDenyRequest(boolean action);
+	public void confirmPassengerPickup();
+	public void addMessageToRide();
+	public void viewAllRideMessages();
 	
-	private boolean driverMatchByID(int rid, int aid) {
-		Ride ride = findRideByID(rid);
-		Driver driver = (Driver) account_manager.viewAccountDetails(aid);
-		return (driver.getID() == ride.getDriverID());
-	}
-
 	public void addRider(int aid, int rid) {
 		Ride ride = findRideByID(rid);
 		Rider rider = (Rider) account_manager.viewAccountDetails(aid);
@@ -64,6 +62,10 @@ public class RideManager implements RideBoundaryInterface{
 	public int completeRide() {
 		//Do nothing
 		//Use increment Ride method in Account
+	}
+	
+	private Ride findRideByID(int rid) {
+		return list_of_rides.get(rid);
 	}
 
 }

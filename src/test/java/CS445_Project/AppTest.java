@@ -11,13 +11,14 @@ import java.util.Hashtable;
 
 import entities.*;
 import managers.AccountManager;
+import managers.ReportManager;
+import managers.RideManager;
 
 @TestMethodOrder(OrderAnnotation.class)
 class AppTest {
 	
 	//The @TestMethodOrder and @Order notations go hand in hand to ensure methods are tested in a specified order
 	AccountManager account_manager;
-	RatingManager rating_manager;
 	RideManager ride_manager;
 	RideRequestManager ride_request_manager;
 	ReportManager report_manager;
@@ -25,7 +26,6 @@ class AppTest {
 	//Account Use Cases
 	@BeforeEach public void initialize() {
 		account_manager = new AccountManager();
-		rating_manager = new RatingManager();
 		ride_manager = new RideManager();
 		ride_request_manager = new RideRequestManager();
 		report_manager = new ReportManager();

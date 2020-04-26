@@ -9,6 +9,8 @@ import javax.ws.rs.core.*;
 
 import interfaces.*;
 import managers.AccountManager;
+import managers.ReportManager;
+import managers.RideManager;
 
 @Path("/sar")
 public class REST_controller {

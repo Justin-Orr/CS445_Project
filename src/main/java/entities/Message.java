@@ -1,5 +1,7 @@
 package entities;
 
+import util.UniqueIdGenerator;
+
 public class Message {
 	
 	private int mid; //Message ID

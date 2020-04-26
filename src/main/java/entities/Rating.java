@@ -1,5 +1,7 @@
 package entities;
 
+import util.UniqueIdGenerator;
+
 public class Rating {
 	
 	private int sid; //Rating ID

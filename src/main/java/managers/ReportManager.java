@@ -1,6 +1,8 @@
-package entities;
+package managers;
 
 import java.util.Hashtable;
+
+import entities.Report;
 import interfaces.ReportBoundaryInterface;
 
 public class ReportManager implements ReportBoundaryInterface{

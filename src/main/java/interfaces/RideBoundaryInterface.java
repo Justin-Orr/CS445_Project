@@ -12,5 +12,10 @@ public interface RideBoundaryInterface {
 	public Hashtable<Integer, Ride> viewAllRides();
 	public Ride viewRideDetail(int rid);
 	public void searchRides(String from, String to, String date);
+	public void requestToJoinRide();
+	public void confirmOrDenyRequest(boolean action);
+	public void confirmPassengerPickup();
+	public void addMessageToRide();
+	public void viewAllRideMessages();
 	
 }

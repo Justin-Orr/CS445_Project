@@ -1,23 +1,38 @@
 package entities;
 
+import java.util.ArrayList;
+
+import util.UniqueIdGenerator;
+
 public class Ride {
 	
 	private int rid; //Ride ID
 	
-	private String pickUp, destination;
-	private String date, pickUptime;
-	private String conditions;
-	private int driverID;
-	private int riderID; //assuming one rider for now
+	private LocationDetails location_info;
+	private String date;
+	private String time;
+	private Vehicle vehicle;
+	
 	private int max_passengers;
 	private double amount_per_passenger;
+	private String conditions;
+
+	private int driverID;
+	private ArrayList<Integer> riderIDs;
 	private History message_history;
 	
-	public Ride(String pickUp, String destination, String date, String pickUptime, int driverID, int max_passengers, double amount_per_passenger, String conditions) {
+	public Ride(int driverID, LocationDetails location_info, String date, String time, Vehicle vehicle, int max_passengers, double amount_per_passenger, String conditions) {
 		this.rid = UniqueIdGenerator.getUniqueID();
-		this.driverID = driverID;
+		this.location_info = location_info;
+		this.date = date;
+		this.time = time;
+		this.vehicle = vehicle;
+		this.max_passengers = max_passengers;
+		this.amount_per_passenger = amount_per_passenger;
+		this.conditions = conditions;
+		this.riderIDs = new ArrayList<Integer>();
 		this.message_history = new History();
-		updateRideDetails(pickUp, destination, date, pickUptime, max_passengers, amount_per_passenger, conditions);
+		
 	}
 	
 	public int getRideID() {
@@ -54,7 +69,7 @@ public class Ride {
 		this.pickUp = pickUp;
 		this.destination = destination;
 		this.date = date;
-		this.pickUptime = pickUptime;
+		this.time = pickUptime;
 		this.max_passengers = max_passengers;
 		this.amount_per_passenger = amount_per_passenger;
 		this.conditions = conditions;
@@ -69,7 +84,7 @@ public class Ride {
 					"; pickUp: " + pickUp +
 					"; destination: " + destination +
 					"; date: " + date +
-					"; pickUptime: " + pickUptime +
+					"; pickUptime: " + time +
 					"; driverID: " + driverID +
 					"; riderID: " + riderID +
 					"; max_passengers: " + max_passengers +

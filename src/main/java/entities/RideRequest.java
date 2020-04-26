@@ -1,5 +1,7 @@
 package entities;
 
+import util.UniqueIdGenerator;
+
 public class RideRequest {
 	
 	private int jid; //join ride request ID

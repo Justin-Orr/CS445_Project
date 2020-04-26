@@ -5,7 +5,7 @@ public class Driver extends Account {
 	private Vehicle vehicle;
 	
 	public Driver(String first_name, String last_name, String phone, String picture, boolean is_active) {
-		super("DRIVER", first_name, last_name, phone, picture, is_active);
+		super(first_name, last_name, phone, picture, is_active);
 	}
 	
 	public Vehicle getVehicle() {

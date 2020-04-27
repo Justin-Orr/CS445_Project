@@ -6,12 +6,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
-//import org.json.simple.JSONObject;
-//import org.json.simple.parser.ParseException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Map;
 
 import entities.Account;
@@ -23,15 +23,15 @@ public class REST_controller {
     private RideBoundaryInterface ride_boundary_interface = new RideManager();
     private ReportBoundaryInterface report_boundary_interface = new ReportManager();
 
-//    private Map<String, Object> validationErrorResponse(String detail, String instance) {
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("type", "http://cs.iit.edu/~virgil/cs445/project/api/problems/data-validation");
-//        jsonObject.put("title", "Your request data didn't pass validation");
-//        jsonObject.put("detail", detail);
-//        jsonObject.put("status", 400);
-//        jsonObject.put("instance", instance);
-//        return jsonObject.toMap();
-//    }
+    private Response generateValidationErrorResponse(String detail, String instance) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.put("type", "http://cs.iit.edu/~virgil/cs445/project/api/problems/data-validation");
+        jsonObject.put("title", "Your request data didn't pass validation");
+        jsonObject.put("detail", detail);
+        jsonObject.put("status", 400);
+        jsonObject.put("instance", instance);
+        
+    }
     
     @GET
     @Produces("text/plain")
@@ -56,13 +56,16 @@ public class REST_controller {
     	int aid = account_boundary_interface.createAccount(first_name, last_name, phone, picture, is_active);
     	
     	//Prepare Response
-        Gson gson = new Gson();
+    	Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String s = gson.toJson(aid);
+        
         // Build the URI for the "Location:" header
         UriBuilder builder = uriInfo.getAbsolutePathBuilder();
         builder.path(Integer.toString(aid));
+        
         // The response includes header and body data
-        return Response.created(builder.build()).entity(s).build();
+        return Response.created(builder.build()).entity(s).build();	
+            
     }
     
 
